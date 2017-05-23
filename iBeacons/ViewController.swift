@@ -9,7 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    let beaconStuff: [String] = ["Beacon 1 RSSI", "Beacon 2 RSSI", "Beacon 3 RSSI", "Beacon 4 RSSI", "Beacon 5 RSSI", "Beacon 6 RSSI", "Acceleration X", "Acceleration Y", "Acceleration Z", "Rotation X", "Rotation Y", "Rotation Z"]
+    
     var tableView: UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 400))
+//    var secondTableView = UITableView(frame: <#T##CGRect#>)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return beaconStuff.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -35,6 +38,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+        let type = beaconStuff[indexPath.row]
+        switch type {
+            case "Beacon 1 RSSI":
+                cell.textLabel?.text = type
+            case "Beacon 2 RSSI":
+                cell.textLabel?.text = type
+            case "Beacon 3 RSSI":
+                cell.textLabel?.text = type
+            case "Beacon 4 RSSI":
+                cell.textLabel?.text = type
+            case "Beacon 5 RSSI":
+                cell.textLabel?.text = type
+            case "Beacon 6 RSSI":
+                cell.textLabel?.text = type
+            case "Acceleration X":
+                cell.textLabel?.text = type
+            case "Acceleration Y":
+                cell.textLabel?.text  = type
+            case "Acceleration Z":
+                cell.textLabel?.text = type
+            case "Rotation X":
+                cell.textLabel?.text = type
+            case "Rotation Y":
+                cell.textLabel?.text = type
+            case "Rotation Z":
+                cell.textLabel?.text = type
+            default:
+                break
+        }
         return cell
     }
 
