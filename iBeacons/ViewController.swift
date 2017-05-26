@@ -90,6 +90,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         print("\(beacons)")
     }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print("\(region)")
+    }
 
 
 }
