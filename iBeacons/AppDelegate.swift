@@ -13,9 +13,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let tabViewController = TabBarController()
+        // Main VC
+        let mainVC = mainStoryBoard.instantiateViewController(withIdentifier: "mainVC")
+        mainVC.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "GPS Receiving-50"), selectedImage: nil)
+        
+        //Location VC
+        let iDlocationController = IndoorLocationController()
+        
+        iDlocationController.tabBarItem = UITabBarItem(title: "Indoor Location", image: #imageLiteral(resourceName: "Indoor Camera-50"), selectedImage: nil)
+        
+        let mainNavCon = UINavigationController(rootViewController: mainVC)
+        let locationNavCon = UINavigationController(rootViewController: iDlocationController)
+        
+        tabViewController.setViewControllers([mainNavCon, locationNavCon], animated: true)
+        
+        window?.rootViewController = tabViewController
+        window?.makeKeyAndVisible()
         return true
     }
 

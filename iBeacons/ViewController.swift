@@ -7,16 +7,33 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+    let locationManager = CLLocationManager()
+    var isRunning: Bool = false
+    let region = CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B575555")!, identifier: "Estimote")
+    
+    
     let beaconStuff: [String] = ["Beacon 1 RSSI", "Beacon 2 RSSI", "Beacon 3 RSSI", "Beacon 4 RSSI", "Beacon 5 RSSI", "Beacon 6 RSSI", "Acceleration X", "Acceleration Y", "Acceleration Z", "Rotation X", "Rotation Y", "Rotation Z"]
     
-    var tableView: UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 400))
-//    var secondTableView = UITableView(frame: <#T##CGRect#>)
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var scanButton: UIButton!
+    @IBAction func scan(_ sender: Any) {
+        locationManager.startRangingBeacons(in: region)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        title = "Scanner"
+        if (CLLocationManager.authorizationStatus() != .authorizedAlways) {
+            locationManager.requestAlwaysAuthorization()
+        }
+        
+        
+        locationManager.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
@@ -68,6 +85,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 break
         }
         return cell
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+        print("\(beacons)")
     }
 
 
