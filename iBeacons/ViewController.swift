@@ -8,20 +8,47 @@
 
 import UIKit
 import CoreLocation
+import CoreMotion
+import CoreBluetooth
+import Foundation
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
-    var isRunning: Bool = false
+    
+    let motionManager = CMMotionManager()
+    var bluetoothManager: CBPeripheralManager?
+    var running: Bool = false
+    var beaconTwoRSSI: String!
     let region = CLBeaconRegion(proximityUUID: UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B575555")!, identifier: "Estimote")
     
     
     let beaconStuff: [String] = ["Beacon 1 RSSI", "Beacon 2 RSSI", "Beacon 3 RSSI", "Beacon 4 RSSI", "Beacon 5 RSSI", "Beacon 6 RSSI", "Acceleration X", "Acceleration Y", "Acceleration Z", "Rotation X", "Rotation Y", "Rotation Z"]
     
+    var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(ViewController.refresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scanButton: UIButton!
     @IBAction func scan(_ sender: Any) {
-        locationManager.startRangingBeacons(in: region)
+        print("pressed")
+        if !running {
+            // starting motion
+            motionManager.startAccelerometerUpdates()
+            motionManager.startGyroUpdates()
+            motionManager.startDeviceMotionUpdates()
+            motionManager.startMagnetometerUpdates()
+            
+            // looking for beacons and stuff
+            locationManager.startRangingBeacons(in: region)
+            var timer = Timer()
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.refresh), userInfo: nil, repeats: true)
+            running = true
+        }
+        
     }
 
     override func viewDidLoad() {
@@ -32,12 +59,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             locationManager.requestAlwaysAuthorization()
         }
         
-        
+        bluetoothManager = CBPeripheralManager(delegate: self as? CBPeripheralManagerDelegate, queue: nil)
         locationManager.delegate = self
+//        tableView.refreshControl = refreshControl
         tableView.dataSource = self
         tableView.delegate = self
-        view.addSubview(tableView)
-        
+        view.addSubview(tableView)         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +92,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.textLabel?.text = type
             case "Beacon 2 RSSI":
                 cell.textLabel?.text = type
+                if running {
+                    cell.detailTextLabel?.text = beaconTwoRSSI
+                }
             case "Beacon 3 RSSI":
                 cell.textLabel?.text = type
             case "Beacon 4 RSSI":
@@ -71,16 +105,46 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.textLabel?.text = type
             case "Acceleration X":
                 cell.textLabel?.text = type
+                if running {
+                    if let accelarometer = motionManager.accelerometerData {
+                        cell.detailTextLabel?.text = "\(round(100000 * accelarometer.acceleration.x) / 100000)"
+                    }
+                }
             case "Acceleration Y":
                 cell.textLabel?.text  = type
+                if running {
+                    if let accelarometer = motionManager.accelerometerData {
+                        cell.detailTextLabel?.text = "\(round(100000 * accelarometer.acceleration.y) / 100000)"
+                    }
+                }
             case "Acceleration Z":
                 cell.textLabel?.text = type
+                if running {
+                    if let accelarometer = motionManager.accelerometerData {
+                        cell.detailTextLabel?.text = "\(round(100000 * accelarometer.acceleration.z) / 100000)"
+                    }
+                }
             case "Rotation X":
                 cell.textLabel?.text = type
+                if running {
+                    if let rotation = motionManager.deviceMotion {
+                        cell.detailTextLabel?.text = "\(round(100000 * rotation.rotationRate.x) / 100000)"
+                    }
+                }
             case "Rotation Y":
                 cell.textLabel?.text = type
+                if running {
+                    if let rotation = motionManager.deviceMotion {
+                        cell.detailTextLabel?.text = "\(round(100000 * rotation.rotationRate.y) / 100000)"
+                    }
+                }
             case "Rotation Z":
                 cell.textLabel?.text = type
+                if running {
+                    if let rotation = motionManager.deviceMotion {
+                        cell.detailTextLabel?.text = "\(round(100000 * rotation.rotationRate.z) / 100000)"
+                    }
+                }
             default:
                 break
         }
@@ -88,11 +152,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
-        print("\(beacons)")
+        let knownBeacons = beacons.filter{$0.proximity != CLProximity.unknown }
+        if knownBeacons.count > 0 {
+            for beacon in knownBeacons {
+                if (beacon.minor == 2) && (beacon.major == 2) {
+                    // Beacon II
+                    beaconTwoRSSI = "\(beacon.rssi)"
+                }
+            }
+        }
     }
     
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print("\(region)")
+    
+    
+    
+    
+    func refresh() {
+        self.tableView.reloadData()
+        // accelarometer
+        if let accelarometer = motionManager.accelerometerData {
+            print("acceleration data: \(accelarometer.acceleration)")
+        }
+        
+        if let rotation = motionManager.deviceMotion {
+            print("rotation data: \(rotation.rotationRate)")
+        }
+        
+        if let gyroData = motionManager.gyroData {
+            print("gyro data: \(gyroData)")
+        }
+        
+        if let magnoMeter = motionManager.magnetometerData {
+            print("magmo data: \(magnoMeter)")
+        }
     }
 
 

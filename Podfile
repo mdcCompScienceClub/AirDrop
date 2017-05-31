@@ -5,7 +5,7 @@ target 'iBeacons' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'EstimoteSDK'
-
+  pod 'SQLite.swift'
   # Pods for iBeacons
 
   target 'iBeaconsTests' do

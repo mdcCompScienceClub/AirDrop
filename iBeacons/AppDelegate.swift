@@ -19,12 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabViewController = TabBarController()
         // Main VC
         let mainVC = mainStoryBoard.instantiateViewController(withIdentifier: "mainVC")
-        mainVC.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "GPS Receiving-50"), selectedImage: nil)
+        mainVC.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "GPS Receiving-30"), selectedImage: nil)
         
         //Location VC
-        let iDlocationController = IndoorLocationController()
+        let iDlocationController = mainStoryBoard.instantiateViewController(withIdentifier: "indoorVC")
         
-        iDlocationController.tabBarItem = UITabBarItem(title: "Indoor Location", image: #imageLiteral(resourceName: "Indoor Camera-50"), selectedImage: nil)
+        iDlocationController.tabBarItem = UITabBarItem(title: "Indoor Location", image: #imageLiteral(resourceName: "User Location-30"), selectedImage: nil)
         
         let mainNavCon = UINavigationController(rootViewController: mainVC)
         let locationNavCon = UINavigationController(rootViewController: iDlocationController)

@@ -31,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		2AC0277E6E8DAB5ECAE79331 /* Pods-iBeaconsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iBeaconsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iBeaconsTests/Pods-iBeaconsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		641F032D1EDB4F8400D24E7A /* ObjCBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ObjCBridge.h; path = iBeacons/ObjCBridge.h; sourceTree = "<group>"; };
 		6433137B1ED6744B0066A6D9 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		6433137E1ED6783B0066A6D9 /* IndoorLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndoorLocationController.swift; sourceTree = "<group>"; };
 		64532EDD1ECB39A800CCCEB9 /* iBeacons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iBeacons.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +93,7 @@
 		64532ED41ECB39A700CCCEB9 = {
 			isa = PBXGroup;
 			children = (
+				641F032D1EDB4F8400D24E7A /* ObjCBridge.h */,
 				64532EDF1ECB39A800CCCEB9 /* iBeacons */,
 				64532EF41ECB39A800CCCEB9 /* iBeaconsTests */,
 				64532EDE1ECB39A800CCCEB9 /* Products */,
@@ -507,6 +509,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Harlans.iBeacons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "${iBeacons}/ObjCBridge.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
