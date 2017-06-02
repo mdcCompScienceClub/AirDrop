@@ -6,11 +6,8 @@ target 'iBeacons' do
   use_frameworks!
   pod 'EstimoteSDK'
   pod 'SQLite.swift'
+  pod 'EstimoteIndoorSDK'
   # Pods for iBeacons
 
-  target 'iBeaconsTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
+  
 end

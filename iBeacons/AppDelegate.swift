@@ -17,13 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         let tabViewController = TabBarController()
+        
         // Main VC
         let mainVC = mainStoryBoard.instantiateViewController(withIdentifier: "mainVC")
         mainVC.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "GPS Receiving-30"), selectedImage: nil)
         
         //Location VC
         let iDlocationController = mainStoryBoard.instantiateViewController(withIdentifier: "indoorVC")
-        
         iDlocationController.tabBarItem = UITabBarItem(title: "Indoor Location", image: #imageLiteral(resourceName: "User Location-30"), selectedImage: nil)
         
         let mainNavCon = UINavigationController(rootViewController: mainVC)
