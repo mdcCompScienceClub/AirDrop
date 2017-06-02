@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,14 +21,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lGN-5A-fKh">
-                                <rect key="frame" x="0.0" y="28" width="320" height="303"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="303" id="LGv-RD-XtH"/>
-                                    <constraint firstAttribute="width" constant="320" id="u1L-aK-tXN"/>
-                                </constraints>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqj-tH-Wck">
                                 <rect key="frame" x="98" y="367" width="124" height="30"/>
                                 <color key="backgroundColor" red="0.0039215686274509803" green="0.85490196078431369" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
@@ -44,12 +36,20 @@
                                     <action selector="scan:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qlZ-Sy-hNa"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lGN-5A-fKh">
+                                <rect key="frame" x="0.0" y="20" width="320" height="303"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="303" id="LGv-RD-XtH"/>
+                                    <constraint firstAttribute="width" constant="320" id="u1L-aK-tXN"/>
+                                </constraints>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lGN-5A-fKh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Orf-RD-okD"/>
-                            <constraint firstItem="zqj-tH-Wck" firstAttribute="top" secondItem="lGN-5A-fKh" secondAttribute="bottom" constant="36" id="Ye3-kC-Ghc"/>
-                            <constraint firstItem="lGN-5A-fKh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="hRH-Xl-upZ"/>
+                            <constraint firstItem="zqj-tH-Wck" firstAttribute="top" secondItem="lGN-5A-fKh" secondAttribute="bottom" constant="44" id="Ye3-kC-Ghc"/>
+                            <constraint firstItem="lGN-5A-fKh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="hRH-Xl-upZ"/>
                             <constraint firstItem="zqj-tH-Wck" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="t8x-WJ-Mn6"/>
                         </constraints>
                     </view>
