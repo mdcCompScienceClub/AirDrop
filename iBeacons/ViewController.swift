@@ -38,6 +38,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scanButton: UIButton!
+    
     @IBAction func scan(_ sender: Any) {
         print("pressed")
         if !running {
@@ -58,11 +59,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         title = "Scanner"
+        scanButton.layer.cornerRadius = 15
+        scanButton.clipsToBounds = true
         if (CLLocationManager.authorizationStatus() != .authorizedAlways) {
             locationManager.requestAlwaysAuthorization()
         }
@@ -108,6 +113,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+        cell.selectionStyle = .none 
         let type = beaconStuff[indexPath.section]
         switch type {
             case "Beacon 1 RSSI":
