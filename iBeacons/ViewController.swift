@@ -38,6 +38,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scanButton: UIButton!
+    
     @IBAction func scan(_ sender: Any) {
         print("pressed")
         if !running {
@@ -58,11 +59,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         title = "Scanner"
+        scanButton.layer.cornerRadius = 15
+        scanButton.clipsToBounds = true
         if (CLLocationManager.authorizationStatus() != .authorizedAlways) {
             locationManager.requestAlwaysAuthorization()
         }
@@ -84,22 +89,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return beaconStuff.count
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 20, y: 20, width: 10, height: 10))
-        headerView.backgroundColor = UIColor.lightGray
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return beaconStuff.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -108,7 +99,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
-        let type = beaconStuff[indexPath.section]
+        cell.selectionStyle = .none
+        let type = beaconStuff[indexPath.row]
         switch type {
             case "Beacon 1 RSSI":
                 cell.textLabel?.text = type
@@ -186,6 +178,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 break
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        <#code#>
     }
     
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
