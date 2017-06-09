@@ -12,10 +12,11 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate {
 
     var window: UIWindow?
-
+    let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        
         let tabViewController = TabBarController()
         
         // Main VC
@@ -23,8 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate 
         mainVC.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "GPS Receiving-30"), selectedImage: nil)
         
         //Location VC
-        let iDlocationController = mainStoryBoard.instantiateViewController(withIdentifier: "indoorVC")
+        let indoorVC = IndoorLocationController()
+        let iDlocationController = mainStoryBoard.instantiateViewController(withIdentifier: "indoorVC") as! IndoorLocationController
+        indoorVC.tabBarItem = UITabBarItem(title: "Indoor Location", image: #imageLiteral(resourceName: "User Location-30"), selectedImage: nil)
         iDlocationController.tabBarItem = UITabBarItem(title: "Indoor Location", image: #imageLiteral(resourceName: "User Location-30"), selectedImage: nil)
+        
         
         let mainNavCon = UINavigationController(rootViewController: mainVC)
         let locationNavCon = UINavigationController(rootViewController: iDlocationController)

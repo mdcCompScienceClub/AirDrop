@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-class IndoorLocationController: ViewController {
+class IndoorLocationController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        title = "Map View"
     }
 }

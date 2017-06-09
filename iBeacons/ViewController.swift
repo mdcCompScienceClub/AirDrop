@@ -180,14 +180,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        <#code#>
-    }
-    
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         let knownBeacons = beacons.filter{$0.proximity != CLProximity.unknown }
         if knownBeacons.count > 0 {
-            print(beacons)
+            print(knownBeacons)
             for beacon in knownBeacons {
                 if (beacon.minor == 2) && (beacon.major == 2) {
                     // Beacon IV
@@ -225,19 +221,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tableView.reloadData()
         // accelarometer
         if let accelarometer = motionManager.accelerometerData {
-            print("acceleration data: \(accelarometer.acceleration)")
+//            print("acceleration data: \(accelarometer.acceleration)")
         }
         
         if let rotation = motionManager.deviceMotion {
-            print("rotation data: \(rotation.rotationRate)")
+//            print("rotation data: \(rotation.rotationRate)")
         }
         
         if let gyroData = motionManager.gyroData {
-            print("gyro data: \(gyroData)")
+//            print("gyro data: \(gyroData)")
         }
         
         if let magnoMeter = motionManager.magnetometerData {
-            print("magmo data: \(magnoMeter)")
+//            print("magmo data: \(magnoMeter)")
         }
     }
 
