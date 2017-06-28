@@ -7,16 +7,36 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, ESTBeaconManagerDelegate {
 
     var window: UIWindow?
     let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+    let center = UNUserNotificationCenter.current()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // User Notifications
+        let options: UNAuthorizationOptions = [.alert, .badge]
+        // request access for notification
+        center.requestAuthorization(options: options) {
+            (granted, error) in
+            if !granted {
+                print("Something went wrong")
+            }
+        }
+        // checks if its authorized
+        center.getNotificationSettings { (settings) in
+            if settings.authorizationStatus != .authorized {
+                // Notifications not allowed
+                
+            }
+        }
+        
+        // TabView Controller
         let tabViewController = TabBarController()
         
         // Main VC
